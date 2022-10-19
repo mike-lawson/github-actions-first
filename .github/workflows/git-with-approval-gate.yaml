@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 1
       - id: prepare
         run: |
             git log --oneline origin/staging..origin/main
@@ -21,11 +21,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 1
       - run: |
           git config user.name "Github Action Bot"
           git config user.email "foo@bar.com"
-          git fetch origin staging --depth=0
+          git fetch origin staging --depth=1
           git fetch origin ${{ needs.prepare-release-notes.outputs.main-hash }}
           git checkout staging
           git reset --hard ${{ needs.prepare-release-notes.outputs.main-hash }}
