@@ -18,3 +18,4 @@ jobs:
         git checkout staging
         git reset --hard main
         git push -u origin staging
+
