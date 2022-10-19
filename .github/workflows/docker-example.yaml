@@ -1,5 +1,7 @@
 name: Docker example
+run-name: ${{ github.actor }} - Dockerfile
 description: Tests out the Dockerfile
+on: [workflow_dispatch]
 runs:
   using: "docker"
   image: "Dockerfile"
