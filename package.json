@@ -1,0 +1,16 @@
+{
+  "name": "github-actions-first",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/mike-lawson/github-actions-first.git",
+  "author": "Mike Lawson <mike@mjlawson.net>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "start": "node dist/index.js"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
