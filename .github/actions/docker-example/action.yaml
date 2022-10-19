@@ -1,5 +1,5 @@
 name: Docker example
-run-name: ${{ github.actor }} - Dockerfile
+run-name: Run-Script
 description: Tests out the Dockerfile
 on: [workflow_dispatch]
 runs:
