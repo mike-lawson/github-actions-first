@@ -6,11 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: prepare
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - run: git log --oneline origin/staging..origin/main
-      - run: echo "hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        run: |
+            git log --oneline origin/staging..origin/main
+            echo "hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
     outputs:
       main-hash: ${{ steps.prepare.outputs.hash }}
   deploy-to-staging:
@@ -19,7 +20,7 @@ jobs:
     needs: prepare-release-notes
     steps:
       - uses: actions/checkout@v3
-      - run: |
+        run: |
           git config user.name "Github Action Bot"
           git config user.email "foo@bar.com"
           git checkout staging
