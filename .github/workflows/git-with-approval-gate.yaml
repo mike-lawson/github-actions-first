@@ -2,7 +2,14 @@ name: Deploy to Staging
 run-name: staging-deploy
 on: [workflow_dispatch]
 jobs:
+  filter-branches:
+    runs-on: ubuntu-latest
+    steps:
+      # grep . will exit if the awk fails
+      # Ensures branch this workflow is ran on matches the release-v## or release-v##.# pattern
+      - run: echo $GITHUB_REF | awk '/^release-v[0-9]+(\.[0-9]+)?$/' | grep .
   prepare-release-notes:
+    needs: filter-branches
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -10,10 +17,8 @@ jobs:
           fetch-depth: 0
       - id: prepare
         run: |
-            git log --oneline origin/staging..origin/main
-            echo "hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
-    outputs:
-      main-hash: ${{ steps.prepare.outputs.hash }}
+            git fetch $GITHUB_SHA
+            git log --oneline origin/staging..$GITHUB_SHA
   qa-approval:
     environment: 'staging-qa'
     runs-on: ubuntu-latest
