@@ -1,0 +1,10 @@
+name: GitHub Docker Demo
+run-name: ${{ github.actor }} is testing out a Docker job
+on: [workflow_dispatch]
+jobs:
+  Test-Docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run docker image
+        id: docker-test
+        uses: ./github/actions/docker-example.yaml
