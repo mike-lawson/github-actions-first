@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  first:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./package.json:/usr/src/app/package.json
+    container_name: first
+    command: yarn start
