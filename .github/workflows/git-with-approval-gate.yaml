@@ -25,6 +25,8 @@ jobs:
       - run: |
           git config user.name "Github Action Bot"
           git config user.email "foo@bar.com"
+          git fetch origin staging --depth=0
           git fetch origin ${{ needs.prepare-release-notes.outputs.main-hash }}
-          git checkout ${{ needs.prepare-release-notes.outputs.main-hash }}
+          git checkout staging
+          git reset --hard ${{ needs.prepare-release-notes.outputs.main-hash }}
           git push -u origin staging --force
