@@ -5,6 +5,7 @@ jobs:
   Test-Docker:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Run docker image
         id: docker-test
-        uses: ./github/actions/docker-example
+        uses: ./.github/actions/docker-example
