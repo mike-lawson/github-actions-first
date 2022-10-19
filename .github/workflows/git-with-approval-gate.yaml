@@ -7,8 +7,8 @@ jobs:
     steps:
       # grep . will exit if the awk fails
       # Ensures branch this workflow is ran on matches the release-v## or release-v##.# pattern
-      - run: echo $GITHUB_REF
-      - run: echo $GITHUB_REF | awk '/^release-v[0-9]+(\.[0-9]+)?$/' | grep .
+      - run: echo "Checking if $GITHUB_REF is a release branch.."
+      - run: echo $GITHUB_REF | awk '/^refs\/heads\/release-v[0-9]+(\.[0-9]+)?$/' | grep .
   prepare-release-notes:
     needs: filter-branches
     runs-on: ubuntu-latest
