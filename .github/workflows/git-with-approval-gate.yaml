@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - id: prepare
         run: |
             git log --oneline origin/staging..origin/main
@@ -18,6 +20,8 @@ jobs:
     needs: prepare-release-notes
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - run: |
           git config user.name "Github Action Bot"
           git config user.email "foo@bar.com"
