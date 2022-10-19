@@ -20,9 +20,11 @@ jobs:
     needs: prepare-release-notes
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - run: |
           git config user.name "Github Action Bot"
           git config user.email "foo@bar.com"
-          git checkout staging
-          git reset --hard ${{ needs.prepare-release-notes.outputs.main-hash }}
-          git push -u origin staging
+          git fetch origin ${{ needs.prepare-release-notes.outputs.main-hash }}
+          git checkout ${{ needs.prepare-release-notes.outputs.main-hash }}
+          git push -u origin staging --force
