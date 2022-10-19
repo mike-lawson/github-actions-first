@@ -7,4 +7,4 @@ jobs:
     steps:
       - name: Run docker image
         id: docker-test
-        uses: ./github/actions/docker-example.yaml
+        uses: ./github/actions/docker-example
