@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
       - id: prepare
         run: |
-            git fetch $GITHUB_SHA
+            git fetch origin $GITHUB_SHA
             git log --oneline origin/staging..$GITHUB_SHA
   qa-approval:
     environment: 'staging-qa'
@@ -34,7 +34,7 @@ jobs:
       - run: echo "Engineering approved"
   deploy-to-staging:
     runs-on: ubuntu-latest
-    needs: [prepare-release-notes, qa-approval, eng-approval]
+    needs: [qa-approval, eng-approval]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -43,7 +43,7 @@ jobs:
           git config user.name "Github Action Bot"
           git config user.email "foo@bar.com"
           git fetch origin staging --depth=1
-          git fetch origin ${{ needs.prepare-release-notes.outputs.main-hash }}
+          git fetch origin $GITHUB_SHA
           git checkout staging
-          git reset --hard ${{ needs.prepare-release-notes.outputs.main-hash }}
+          git reset --hard $GITHUB_SHA
           git push -u origin staging --force
